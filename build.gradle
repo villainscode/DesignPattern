@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+group 'com.example' // 그룹 ID 설정
+version '1.0-SNAPSHOT' // 버전 설정
+
+sourceCompatibility = '1.8' // Java 버전 설정
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 의존성 라이브러리
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    implementation 'org.slf4j:slf4j-log4j12:1.7.29'
+    implementation 'log4j:log4j:1.2.17'
+
+    // 테스트 의존성 추가 (필요시)
+    testImplementation 'junit:junit:4.13.2'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+    }
+}
