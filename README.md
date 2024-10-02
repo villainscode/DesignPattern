@@ -120,7 +120,7 @@ public abstract class Car {
         System.out.println("Do one time processing here");
     }
 
-    protected abstract void construct();     // 서브 클래스에서 이 메드를 구현한다. 
+    protected abstract void construct();     // 서브 클래스에서 이 메서드를 구현한다. 
 
 }
 ```
@@ -247,13 +247,13 @@ public class TestFactoryPattern {
 public class Singleton{
     private Singleton() {}
     private static SingleTon uniqueInstance;
-        
-		public static Singleton getInstance(){
+    
+    public static Singleton getInstance(){
         if(uniqueInstance == null){
-		        unuqueInstance = new Singleton();
-		    }
-		    return uniqueInstance; 
-		}
+		    unuqueInstance = new Singleton();
+        }
+        return uniqueInstance; 
+	}
 }
 ```
 
@@ -266,12 +266,11 @@ public class Singleton{
 ```java
 public class Singleton{
     private static SingleTon uniqueInstance = new Singleton();
-
     private Singleton() {}
 
     public static Singleton getInstance(){
-				return uniqueInstance;
-		}
+        return uniqueInstance;
+    }
 }
 ```
 
@@ -283,20 +282,18 @@ public class Singleton{
 
 ```java
 public class Singleton{
-		private volatile static SingleTon uniqueInstance;
-		
-		private Singleton() {}
-
-		public static Singleton getInstance(){
-				if(uniqueInstance == null){
-						synchronized(Singleton.class){
-								if(uniqueInstance == null){
-										uniqueInstance = new Singleton();
-								}
-						}
-				}
-				return uniqueInstance;
-		}
+    private volatile static SingleTon uniqueInstance;
+    private Singleton() {}
+    public static Singleton getInstance(){
+        if(uniqueInstance == null){
+            synchronized(Singleton.class){
+                if(uniqueInstance == null){
+                    uniqueInstance = new Singleton();
+                }
+            }
+        }
+        return uniqueInstance;
+    }
 }
 ```
 
@@ -308,15 +305,14 @@ volatile는 변수의 변경사항이 다른 스레드에 즉시 반영되어 �
 
 ```java
 public class Singleton {
-		private Singleton() {}
-		
-		private static class SingletonHolder {
-				private static final Singleton INSTANCE = new Singleton();
-		}
+    private Singleton() {}
+    private static class SingletonHolder {
+        private static final Singleton INSTANCE = new Singleton();
+    }
 
-		public static Singleton getInstance() {
-				return SingletonHolder.INSTANCE;
-		}
+    public static Singleton getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
 }
 ```
 
@@ -467,30 +463,30 @@ Template Method를 사용하면 서브클래스가 주요 알고리즘의 구조
 
 ```java
 @Slf4j
-public abstract class HouseTemplate {
-  private Logger logger = LoggerFactory.getLogger(this.getClass());
-	//template method, final so subclasses can't override
-	public final void buildHouse(){
-		buildFoundation();	// 건물 기초를 짓는다.
-		buildPillars();		// 건물 기둥을 짓는다.
-		buildWalls();		// 건물 벽을 짓는다.
-		buildWindows();		// 건물 창호를 만든다.
+public abstract class HouseTemplate { 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    //template method, final so subclasses can't override
+    public final void buildHouse(){
+        buildFoundation();	// 건물 기초를 짓는다.
+        buildPillars();		// 건물 기둥을 짓는다.
+        buildWalls();		// 건물 벽을 짓는다.
+        buildWindows();		// 건물 창호를 만든다.
 
-		logger.info("집이 완공되었다.");
-	}
+        logger.info("집이 완공되었다.");
+    }
 
-	//default implementation
-	private void buildWindows() {
-		logger.info("창호가 완성 되었다.");
-	}
+    //default implementation
+    private void buildWindows() {
+        logger.info("창호가 완성 되었다.");
+    }
 
-	//methods to be implemented by subclasses
-	public abstract void buildWalls();
-	public abstract void buildPillars();
+    //methods to be implemented by subclasses
+    public abstract void buildWalls();
+    public abstract void buildPillars();
 
-	private void buildFoundation() {
-		logger.info("건물의 기초 공사가 시작 되었다.");
-	}
+    private void buildFoundation() {
+        logger.info("건물의 기초 공사가 시작 되었다.");
+    }
 }
 ```
 
@@ -501,32 +497,32 @@ buildHouse()는 템플릿 메서드이며 여러 단계를 수행하기 위한 �
 ```java
 @Slf4j
 public class GlassHouse extends HouseTemplate {
-  private Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Override
-	public void buildWalls() {
-		logger.info("유리벽을 만들었다.");
-	}
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    @Override
+    public void buildWalls() {
+        logger.info("유리벽을 만들었다.");
+    }
 
 	@Override
-	public void buildPillars() {
-		logger.info("유리 기둥을 만들었다.");
-	}
+    public void buildPillars() {
+        logger.info("유리 기둥을 만들었다.");
+    }
 }
 ```
 
 ```java
 @Slf4j
 public class GlassHouse extends HouseTemplate {
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Override
-	public void buildWalls() {
-		logger.info("나무벽을 만들었다.");
-	}
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    @Override
+    public void buildWalls() {
+        logger.info("나무벽을 만들었다.");
+    }
 
-	@Override
-	public void buildPillars() {
-		logger.info("나무 기둥을 만들었다.");
-	}
+    @Override
+    public void buildPillars() {
+        logger.info("나무 기둥을 만들었다.");
+    }
 }
 ```
 
@@ -541,16 +537,15 @@ import com.libqa.pattern.template.application.WoodenHouse;
 
 public class HousingApp {
 
-	public static void main(String[] args) {
-		HouseTemplate houseType = new WoodenHouse();
-		//using template method
-		houseType.buildHouse();
-		System.out.println("************");
+    public static void main(String[] args) {
+        HouseTemplate houseType = new WoodenHouse();
+        //using template method
+        houseType.buildHouse();
+        System.out.println("************");
 
-		houseType = new GlassHouse();
-		houseType.buildHouse();
-	}
-
+        houseType = new GlassHouse();
+        houseType.buildHouse();
+    }
 }
 ```
 
@@ -596,19 +591,19 @@ Facade는 하위 시스템을 보다 더 사용하기 쉽게 만들기 위해 �
 
 코드를 통해 확인해보자.
 
-```jsx
+```java
 public class OracleHelper {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public static Connection getOracleDBConnection() {
-		    // get DB connection using connection parameters
+        // get DB connection using connection parameters
         return null;
     }
 
     public void generateOraclePDFReport(String tableName, Connection con) {
-        //get data from table and generate pdf report
-		    logger.info("오라클 DB의 테이블에서 PDF를 생성한다.");
+    //get data from table and generate pdf report
+        logger.info("오라클 DB의 테이블에서 PDF를 생성한다.");
     }
 
     public void generateOracleHTMLReport(String tableName, Connection con) {
@@ -619,23 +614,23 @@ public class OracleHelper {
 }
 ```
 
-```jsx
+```java
 public class MySqlHelper {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public static Connection getMySqlDBConnection(){
-		  // get DB connection using connection parameters
-		  return null;
-	}
+    public static Connection getMySqlDBConnection(){
+    // get DB connection using connection parameters
+    return null;
+    }
 	
-  public void generateMySqlPDFReport(String tableName, Connection con){
-	  	logger.info("MySQL DB의 테이블에서 PDF를 생성한다.");
-	}
+    public void generateMySqlPDFReport(String tableName, Connection con){
+        logger.info("MySQL DB의 테이블에서 PDF를 생성한다.");
+    }
 	
-	public void generateMySqlHTMLReport(String tableName, Connection con){
-		  logger.info("MySQL DB의 테이블에서 HTML를 생성한다.");
-	}
+    public void generateMySqlHTMLReport(String tableName, Connection con){
+        logger.info("MySQL DB의 테이블에서 HTML를 생성한다.");
+    }
 }
 ```
 
@@ -681,47 +676,46 @@ INFO  OracleHelper:20 - 오라클 DB의 테이블에서 PDF를 생성한다.
 
 이 구조를 구현하기 위해 HelperFacade 라는 클래스로 한번 더 감싸고 클라이언트 코드를 아래와 같이 변경 할 수 있다.
 
-```jsx
+```java
 public class HelperFacade {
 
-	public static void generateReport(DBTypes dbType, ReportTypes reportType, String tableName){
-		  Connection con = null;
-			switch (dbType){
-			case MYSQL: 
-					con = MySqlHelper.getMySqlDBConnection();
-					MySqlHelper mySqlHelper = new MySqlHelper();
-					switch(reportType){
-					case HTML:
-							mySqlHelper.generateMySqlHTMLReport(tableName, con);
-							break;
-					case PDF:
-							mySqlHelper.generateMySqlPDFReport(tableName, con);
-							break;
-					}
-					break;
-			case ORACLE: 
-					con = OracleHelper.getOracleDBConnection();
-					OracleHelper oracleHelper = new OracleHelper();
-					switch(reportType){
-					case HTML:
-							oracleHelper.generateOracleHTMLReport(tableName, con);
-							break;
-					case PDF:
-							oracleHelper.generateOraclePDFReport(tableName, con);
-							break;
-					}
-					break;
-			}
-		
-	}
+    public static void generateReport(DBTypes dbType, ReportTypes reportType, String tableName){
+        Connection con = null;
+        switch (dbType){
+            case MYSQL: 
+                con = MySqlHelper.getMySqlDBConnection();
+                MySqlHelper mySqlHelper = new MySqlHelper();
+                switch(reportType){
+                    case HTML: 
+                        mySqlHelper.generateMySqlHTMLReport(tableName, con);
+                        break; 
+                    case PDF:
+                        mySqlHelper.generateMySqlPDFReport(tableName, con);
+                        break;
+                }
+                break;
+            case ORACLE: 
+                con = OracleHelper.getOracleDBConnection();
+                OracleHelper oracleHelper = new OracleHelper();
+                switch(reportType){
+                    case HTML:
+                        oracleHelper.generateOracleHTMLReport(tableName, con);
+                        break;
+                    case PDF:
+                        oracleHelper.generateOraclePDFReport(tableName, con);
+                        break;
+                }
+                break;
+            }
+        }
 	
-	public static enum DBTypes{
-		MYSQL,ORACLE;
-	}
+    public static enum DBTypes{
+        MYSQL,ORACLE;
+    }
 	
-	public static enum ReportTypes{
-		HTML,PDF;
-	}
+    public static enum ReportTypes{
+        HTML,PDF;
+    }
 }
 ```
 
